@@ -5,6 +5,9 @@ on:
     branches: [main]
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -35,3 +38,11 @@ jobs:
         with:
           name: chazit-apk
           path: android/app/build/outputs/apk/debug/app-debug.apk
+
+      - name: Publish APK as a release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          cp android/app/build/outputs/apk/debug/app-debug.apk chazit.apk
+          gh release delete latest --yes --cleanup-tag || true
+          gh release create latest chazit.apk --title "חזית משותפת - להתקנה" --notes "להורדה והתקנה בטלפון אנדרואיד: לחץ על chazit.apk"
