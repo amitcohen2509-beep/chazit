@@ -1,0 +1,7 @@
+{
+  "appId": "com.chazit.game",
+  "appName": "חזית משותפת",
+  "webDir": "www",
+  "backgroundColor": "#0d1214",
+  "android": { "allowMixedContent": false }
+}
